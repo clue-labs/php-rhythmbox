@@ -1,0 +1,26 @@
+{
+    "name": "clue/rhythmbox",
+    "description": "Rhythmbox music management manager",
+    "keywords": ["rhythmbox", "database", "music player"],
+    "homepage": "https://github.com/clue/rhythmbox",
+    "license": "MIT",
+    "require": {
+        "symfony/console": "~2.1",
+        "clue/basedir": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {"Clue\\Rhythmbox": "src/"}
+    },
+    "bin": ["bin/rhythmbox"],
+    "extra": {
+        "phar": {
+            "bundler": "composer"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/clue/basedir"
+        }
+    ]
+}
