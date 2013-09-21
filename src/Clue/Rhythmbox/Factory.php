@@ -3,7 +3,8 @@
 namespace Clue\Rhythmbox;
 
 use Clue\Basedir\Basedir;
-use Clue\Rhythmbox\Database;
+use Clue\Rhythmbox\Database\XmlDatabase;
+use Clue\Rhythmbox\Database\CachedDatabase;
 
 class Factory
 {
@@ -21,6 +22,6 @@ class Factory
 
     public function createDatabase()
     {
-        return new Database($this->basedir->getDataHome() . 'rhythmbox/rhythmdb.xml');
+        return new CachedDatabase(new XmlDatabase($this->basedir->getDataHome() . 'rhythmbox/rhythmdb.xml'));
     }
 }
