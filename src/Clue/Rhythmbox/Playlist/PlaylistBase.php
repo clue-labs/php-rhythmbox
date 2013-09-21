@@ -2,7 +2,7 @@
 
 namespace Clue\Rhythmbox\Playlist;
 
-use Clue\Rhythmbox\Database;
+use Clue\Rhythmbox\Database\DatabaseInterface;
 
 abstract class PlaylistBase
 {
@@ -23,7 +23,7 @@ abstract class PlaylistBase
         return $this->getAttribute('type');
     }
 
-    abstract public function getSongsFromDatabase(Database $database);
+    abstract public function getSongsFromDatabase(DatabaseInterface $database);
 
     protected function getAttribute($name)
     {

@@ -2,8 +2,8 @@
 
 namespace Clue\Rhythmbox\Playlist;
 
-use Clue\Rhythmbox\Database;
 use SimpleXMLElement;
+use Clue\Rhythmbox\Database\DatabaseInterface;
 
 class AutomaticPlaylist extends PlaylistBase
 {
@@ -71,7 +71,7 @@ class AutomaticPlaylist extends PlaylistBase
         return $max;
     }
 
-    public function getSongsFromDatabase(Database $database)
+    public function getSongsFromDatabase(DatabaseInterface $database)
     {
         $songs = $database->getSongs();
 

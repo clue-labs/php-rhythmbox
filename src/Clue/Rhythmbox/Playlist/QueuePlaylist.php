@@ -2,11 +2,11 @@
 
 namespace Clue\Rhythmbox\Playlist;
 
-use Clue\Rhythmbox\Database;
+use Clue\Rhythmbox\Database\DatabaseInterface;
 
 class QueuePlaylist extends PlaylistBase
 {
-    public function getSongsFromDatabase(Database $database)
+    public function getSongsFromDatabase(DatabaseInterface $database)
     {
         if (!$this->xml->location) {
             // empty static playlist
