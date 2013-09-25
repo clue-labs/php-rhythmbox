@@ -5,6 +5,7 @@ namespace Clue\Rhythmbox;
 use Clue\Basedir\Basedir;
 use Clue\Rhythmbox\Database\XmlDatabase;
 use Clue\Rhythmbox\Database\CachedDatabase;
+use Clue\Rhythmbox\Lyrics\Lyricist;
 
 class Factory
 {
@@ -23,5 +24,10 @@ class Factory
     public function createDatabase()
     {
         return new CachedDatabase(new XmlDatabase($this->basedir->getDataHome() . 'rhythmbox/rhythmdb.xml'));
+    }
+
+    public function createLyricist()
+    {
+        return new Lyricist($this->basedir->getCacheHome() . 'rhythmbox/lyrics/');
     }
 }
