@@ -8,4 +8,9 @@ $factory = new Factory();
 
 $database = $factory->createDatabase();
 
-echo json_encode($database->getSongs(), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES) . PHP_EOL;
+$data = array();
+foreach ($database->getSongs() as $song) {
+    $data[] = $song->getAttributes();
+}
+
+echo json_encode($data, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES) . PHP_EOL;

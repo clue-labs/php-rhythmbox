@@ -3,6 +3,7 @@
 namespace Clue\Rhythmbox\Database;
 
 use Clue\Rhythmbox\Database\DatabaseInterface;
+use Clue\Rhythmbox\Database\Entry\EntryInterface;
 
 abstract class BaseDatabase implements DatabaseInterface
 {
@@ -18,8 +19,8 @@ abstract class BaseDatabase implements DatabaseInterface
 
     private function getAllOfType($type)
     {
-        return array_values(array_filter($this->getAll(), function ($one) use ($type) {
-            return ($one['type'] === $type);
+        return array_values(array_filter($this->getAll(), function (EntryInterface $one) use ($type) {
+            return ($one->getType() === $type);
         }));
     }
 }

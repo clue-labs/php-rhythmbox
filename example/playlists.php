@@ -15,7 +15,7 @@ function sum($array, $key)
 {
     $sum = 0;
     foreach ($array as $one) {
-        $sum += isset($one[$key]) ? $one[$key] : 0;
+        $sum += $one->getAttribute($key);
     }
     return $sum;
 }
@@ -46,7 +46,7 @@ foreach ($playlists->getPlaylists() as $playlist) {
     echo 'Total of ' . sum($songs, 'duration') . ' seconds' . PHP_EOL;
 
     foreach ($songs as $song) {
-        echo ' - ' . $song['location'] . PHP_EOL;
+        echo ' - ' . $song->getLocation() . PHP_EOL;
     }
 
     echo PHP_EOL;

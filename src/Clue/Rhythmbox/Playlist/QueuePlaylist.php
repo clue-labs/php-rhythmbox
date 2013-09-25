@@ -19,8 +19,8 @@ class QueuePlaylist extends PlaylistBase
             $locations[] = (string)$location;
         }
 
-        return array_values(array_filter($database->getSongs(), function ($song) use ($locations) {
-            return in_array($song['location'], $locations);
+        return array_values(array_filter($database->getSongs(), function (Song $song) use ($locations) {
+            return in_array($song->getLocation(), $locations);
         }));
     }
 }

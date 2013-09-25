@@ -4,6 +4,7 @@ namespace Clue\Rhythmbox\Playlist;
 
 use SimpleXMLElement;
 use Clue\Rhythmbox\Database\DatabaseInterface;
+use Clue\Rhythmbox\Database\Entry\Song;
 
 class AutomaticPlaylist extends PlaylistBase
 {
@@ -90,9 +91,9 @@ class AutomaticPlaylist extends PlaylistBase
             $key = $this->getSortKey();
             $reverse = $this->getSortDirection();
 
-            uasort($songs, function ($a, $b) use ($key, $reverse) {
-                $a = $a[$key];
-                $b = $b[$key];
+            uasort($songs, function (Song $sa, Song $sb) use ($key, $reverse) {
+                $a = $sa->getAttribute($key);
+                $b = $sb->getAttribute($key);
 
                 if ($reverse) {
                     $c = $a;
@@ -115,7 +116,7 @@ class AutomaticPlaylist extends PlaylistBase
             foreach ($songs as $i => $song) {
                 $now = 1;
                 if ($property !== null) {
-                    $now = (int)$song[$property];
+                    $now = (int)$song->getAttribute($property);
                 }
 
                 $current += $now;
@@ -160,10 +161,10 @@ class AutomaticPlaylist extends PlaylistBase
      * thus, an empty list of disjunctions *would* fail, but I have yet to see
      * one for rhythmbox playlists
      *
-     * @param array $song
+     * @param Song $song
      * @param SimpleXMLElement $disjunction
      */
-    protected function checkDisjunction($song, \SimpleXMLElement $disjunction)
+    protected function checkDisjunction(Song $song, \SimpleXMLElement $disjunction)
     {
         foreach ($disjunction->children() as $child) {
             /* @var $child SimpleXMLElement */
@@ -178,7 +179,7 @@ class AutomaticPlaylist extends PlaylistBase
         return false;
     }
 
-    protected function checkOne($song, SimpleXMLElement $filter)
+    protected function checkOne(Song $song, SimpleXMLElement $filter)
     {
         $name = $filter->getName();
         if ($name === 'subquery') {
@@ -194,15 +195,9 @@ class AutomaticPlaylist extends PlaylistBase
         }
 
         $property = (string)$filter['prop'];
-
-        if (isset($song[$property])) {
-            $actual = $song[$property];
-        } else {
-            $actual = null;
-            //throw new \Exception('Invalid property "' . $property . '" in ' . json_encode($song));
-        }
-
+        $actual   = $song->getAttribute($property);
         $expected = (string)$filter;
+
         if ($property === 'rating') {
             // TODO: clean up
             // TODO: seems to obey locale
