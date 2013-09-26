@@ -11,9 +11,12 @@ class Factory
 {
     private $basedir;
 
-    public function __construct()
+    public function __construct(Basedir $basedir = null)
     {
-        $this->basedir = new Basedir();
+        if ($basedir === null) {
+            $basedir = new Basedir();
+        }
+        $this->basedir = $basedir;
     }
 
     public function createPlaylists()
